@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #07070b;
+}
+
+/* ---------------------------------------------------------------- notch demo */
+
+/* Equalizer bars inside the notch pill */
+#notch-pill .eq-bar {
+  animation: eq 1s ease-in-out infinite;
+}
+#notch-pill .eq-bar:nth-child(1) { animation-delay: 0s; }
+#notch-pill .eq-bar:nth-child(2) { animation-delay: 0.18s; }
+#notch-pill .eq-bar:nth-child(3) { animation-delay: 0.36s; }
+#notch-pill .eq-bar:nth-child(4) { animation-delay: 0.54s; }
+
+@keyframes eq {
+  0%, 100% { height: 5px; }
+  50% { height: 15px; }
+}
+
+/* Panel + pill expand on hover */
+#notch-demo .notch-panel {
+  opacity: 0;
+  transform: translate(-50%, 8px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+#notch-demo:hover .notch-panel,
+#notch-demo:focus-within .notch-panel {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+#notch-demo:hover #notch-pill,
+#notch-demo:focus-within #notch-pill {
+  box-shadow: 0 0 0 1px rgba(124, 156, 255, 0.4), 0 0 36px rgba(124, 156, 255, 0.25);
+}
+
+/* ---------------------------------------------------------------- misc */
+
+/* Native-ish scrollbar for codeblocks */
+pre, code {
+  tab-size: 2;
+}
+
+::selection {
+  background: rgba(124, 156, 255, 0.35);
+}
+
+/* Subtle gradient headline shimmer fallback is handled by Tailwind classes */

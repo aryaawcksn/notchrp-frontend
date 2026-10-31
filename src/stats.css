@@ -1,0 +1,78 @@
+.dropzone-active {
+  border-color: rgba(124, 156, 255, 0.7) !important;
+  background-color: rgba(124, 156, 255, 0.08) !important;
+}
+
+.char-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(16, 16, 24, 0.7);
+  border-radius: 9999px;
+  padding: 0.4rem 0.4rem 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.char-chip:hover {
+  border-color: rgba(124, 156, 255, 0.4);
+}
+.char-chip.active {
+  border-color: rgba(124, 156, 255, 0.6);
+  background: rgba(124, 156, 255, 0.12);
+}
+.char-chip .close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 9999px;
+  color: rgba(242, 243, 247, 0.5);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.char-chip .close:hover {
+  background: rgba(255, 107, 107, 0.25);
+  color: #ff9b9b;
+}
+
+/* playtime bars */
+.pt-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
+}
+.pt-bar .bar {
+  width: 100%;
+  max-width: 26px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #9db4ff, #5f83f5);
+  min-height: 2px;
+  transition: height 0.4s ease;
+}
+.pt-bar .lab {
+  font-size: 9px;
+  color: rgba(242, 243, 247, 0.4);
+  white-space: nowrap;
+}
+.pt-bar .val {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(242, 243, 247, 0.6);
+}
+
+/* stat cards */
+.stat-card {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(16, 16, 24, 0.6);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.stat-card:hover {
+  border-color: rgba(124, 156, 255, 0.35);
+  transform: translateY(-2px);
+}
