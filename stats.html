@@ -6,7 +6,7 @@
     <title>Statistik Player — NotchClone</title>
     <meta
       name="description"
-      content="Unggah data permainan NotchClone kamu dan lihat statistik aktivitas per karakter: Fishing, Farmer, Sidejob, Mekanik, Taxi, dan lainnya."
+      content="Tabel statistik publik NotchClone: urutkan dan filter per section — Job, Activity, Mechanic, Farmer, Truck, Taxi, Sidejob — termasuk rincian ikan, ore miner, penumpang taxi dan hasil panen."
     />
     <script type="module" src="/src/stats.js"></script>
   </head>
@@ -32,183 +32,85 @@
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             Kembali
           </a>
-          <span class="hidden rounded-full bg-accent/15 px-3 py-1.5 text-xs font-semibold text-accent-400 sm:inline-block">Statistik Player</span>
+          <span class="hidden rounded-full bg-accent/15 px-3 py-1.5 text-xs font-semibold text-accent-400 sm:inline-block">Statistik</span>
         </div>
       </div>
     </header>
 
     <main class="mx-auto max-w-7xl px-5 pb-24 pt-10 sm:px-8">
       <!-- ============================ INTRO ============================ -->
-      <div class="mx-auto max-w-2xl text-center">
-        <h1 class="font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">Statistik Aktivitas Player</h1>
-        <p class="mt-4 text-lg leading-relaxed text-slate-400">
-          Unggah data permainan yang tersimpan di NotchClone dan lihat rekap aktivitasmu —
-          dari <span class="text-slate-200">Fishing total 10 ikan, $100</span> sampai shift mekanik & panen farmer.
+      <div class="mx-auto max-w-3xl text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xs font-medium text-accent-400">
+          <span class="h-2 w-2 rounded-full bg-accent"></span>
+          Data publik · semua karakter
+        </span>
+        <h1 class="mt-5 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">Statistik Player</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-400">
+          Tabel peringkat seluruh karakter yang diunggah lewat NotchClone. Pilih section, klik judul
+          kolom untuk mengurutkan, dan buka rincian seperti <span class="text-slate-200">ore miner
+          (gold, diamond)</span>, <span class="text-slate-200">ikan laut / sungai / lake</span>, atau
+          <span class="text-slate-200">penumpang taxi</span>.
         </p>
         <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-amber-300/80">
           <svg class="mr-1 inline h-4 w-4 -translate-y-px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
-          Data dimuat dari server statistik NotchClone, atau kamu bisa membuka file JSON sendiri —
-          file yang kamu taruh di sini <strong>tetap diproses lokal di browser</strong>.
+          Hanya data publik yang diunggah aplikasi desktop. Halaman ini tidak membaca file lokal.
         </p>
       </div>
 
       <!-- ============================ CONTROLS ============================ -->
-      <section class="mx-auto mt-10 max-w-3xl">
-        <div
-          id="dropzone"
-          class="group relative cursor-pointer rounded-3xl border-2 border-dashed border-white/15 bg-ink-900/50 p-8 text-center transition hover:border-accent/50 hover:bg-ink-850"
-        >
-          <input id="file-input" type="file" accept=".json,application/json" multiple class="hidden" />
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/15 text-accent transition group-hover:bg-accent/25">
-            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
-          </div>
-          <p class="mt-4 font-semibold text-white">Tarik & lepas file JSON di sini</p>
-          <p class="mt-1 text-sm text-slate-400">
-            atau <span class="font-medium text-accent-400">klik untuk pilih file</span> —
-            <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-300">activity.json</code>,
-            <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-300">farmer.json</code>,
-            <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-300">sidejob.json</code>, dst.
-          </p>
-          <p class="mt-2 text-xs text-slate-500">Lokasi data: <code class="font-mono">%AppData%/NotchClone/characters/&lt;nama&gt;/</code></p>
-        </div>
+      <section class="mt-9">
+        <div id="section-tabs" class="tabs" role="tablist" aria-label="Section statistik"></div>
 
-        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <button id="sample-btn" class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-ink-950 transition hover:bg-accent-400">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            Muat Contoh Data
-          </button>
-          <button id="add-char-btn" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-            Tambah Karakter
-          </button>
-          <button id="clear-btn" class="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-400 transition hover:border-rose-400/40 hover:text-rose-300">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            Bersihkan
-          </button>
-        </div>
-
-        <div id="paste-wrap" class="mt-4 hidden">
-          <details class="rounded-2xl border border-white/[0.07] bg-ink-900/50">
-            <summary class="cursor-pointer select-none px-5 py-3 text-sm font-medium text-slate-300">Tempel JSON manual</summary>
-            <div class="px-5 pb-5">
-              <textarea id="paste-area" rows="6" spellcheck="false"
-                class="w-full resize-y rounded-xl border border-white/10 bg-ink-950/80 p-3 font-mono text-xs text-slate-200 placeholder:text-slate-600 focus:border-accent/50 focus:outline-none"
-                placeholder='{ "cash": 100, "bank": 2000, "at": 1730000000000, "name": "Namaku" }'></textarea>
-              <button id="paste-btn" class="mt-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-ink-950 transition hover:bg-accent-400">Terapkan</button>
-              <p class="mt-2 text-xs text-slate-500">Tempel isi salah satu file JSON (mis. money.json) untuk menambahkannya ke karakter terpilih.</p>
-            </div>
-          </details>
-        </div>
-      </section>
-
-      <!-- ============================ SERVER CHARACTERS ============================ -->
-      <section id="server-panel" class="mx-auto mt-10 hidden max-w-3xl">
-        <div class="rounded-3xl border border-white/[0.07] bg-ink-900/50 p-6">
-          <div class="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 class="flex items-center gap-2 font-display text-lg font-semibold text-white">
-                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-base">🛰️</span>
-                Karakter dari server
-              </h2>
-              <p id="server-status" class="mt-1 text-sm text-slate-400">Menghubungkan ke server…</p>
-            </div>
-            <button
-              id="server-refresh"
-              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
+        <div class="toolbar">
+          <div id="sub-chips" class="chips" aria-label="Filter detail"></div>
+          <div class="toolbar-right">
+            <label class="search-wrap">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+              <input id="search" class="search" type="search" placeholder="Cari karakter…" autocomplete="off" spellcheck="false" />
+            </label>
+            <select id="page-size" class="page-size" aria-label="Baris per halaman"></select>
+            <button id="refresh-btn" type="button" class="refresh-btn">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
-              Muat ulang
+              Refresh
             </button>
           </div>
-          <div id="server-chars" class="mt-4 grid gap-3 sm:grid-cols-2"></div>
-          <p class="mt-4 text-xs text-slate-500">
-            Data diunggah dari aplikasi desktop lewat
-            <span class="text-slate-400">Settings → Statistik → Upload sekarang</span>.
-            Hanya karakter bertanda publik yang tampil di sini.
-          </p>
+        </div>
+
+        <div class="status-row">
+          <span id="count-pill" class="count-pill"></span>
+          <span id="status-line" class="status-line">Memuat data…</span>
+          <span class="sort-hint">Klik judul kolom untuk mengurutkan</span>
+        </div>
+
+        <!-- ============================ TABLE ============================ -->
+        <div id="table-wrap" class="table-wrap" hidden>
+          <table class="lb-table">
+            <thead id="lb-head"></thead>
+            <tbody id="lb-body"></tbody>
+          </table>
+        </div>
+
+        <div id="pager" class="pager"></div>
+
+        <!-- ============================ EMPTY STATE ============================ -->
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-card">
+            <div class="empty-icon">🏆</div>
+            <h2 class="empty-title">Belum ada data</h2>
+            <p class="empty-copy">
+              Unggah satu karakter dari aplikasi NotchClone:
+              <span class="text-slate-200">Settings → Stats → Upload your character</span>.
+              Hanya data publik karakter yang tampil di sini.
+            </p>
+          </div>
         </div>
       </section>
-
-      <!-- ============================ EMPTY STATE ============================ -->
-      <section id="empty-state" class="mx-auto mt-16 max-w-2xl text-center">
-        <div class="rounded-3xl border border-white/[0.07] bg-ink-900/40 p-10">
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ink-800 text-4xl">📊</div>
-          <h2 class="mt-5 font-display text-xl font-semibold text-white">Belum ada data</h2>
-          <p class="mx-auto mt-2 max-w-md text-sm text-slate-400">
-            Pilih salah satu karakter di atas, tarik file JSON NotchClone ke sini, klik
-            <span class="text-slate-200">Muat Contoh Data</span> untuk melihat tampilannya, atau tempel JSON manual.
-          </p>
-        </div>
-      </section>
-
-      <!-- ============================ DASHBOARD ============================ -->
-      <div id="dashboard" class="hidden">
-        <!-- character selector -->
-        <section class="mt-10">
-          <div class="flex flex-wrap items-center gap-2" id="char-chips"></div>
-          <div class="mt-3 flex items-center gap-3">
-            <label class="text-sm font-medium text-slate-400">Nama karakter:</label>
-            <input id="char-name" type="text" maxlength="60" placeholder="Tanpa Nama"
-              class="w-56 rounded-lg border border-white/10 bg-ink-900 px-3 py-1.5 text-sm font-semibold text-white placeholder:text-slate-600 focus:border-accent/50 focus:outline-none" />
-          </div>
-        </section>
-
-        <!-- summary cards -->
-        <section class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" id="summary-cards"></section>
-
-        <!-- playtime chart -->
-        <section id="playtime-section" class="mt-8 hidden">
-          <div class="rounded-2xl border border-white/[0.07] bg-ink-900/50 p-6">
-            <h2 class="flex items-center gap-2 font-display text-lg font-semibold text-white">
-              <span>⏱️</span> Playtime (14 hari terakhir)
-            </h2>
-            <div id="playtime-chart" class="mt-5 flex h-32 items-end gap-1"></div>
-            <p id="playtime-summary" class="mt-4 text-sm text-slate-400"></p>
-          </div>
-        </section>
-
-        <!-- activity -->
-        <section id="activity-section" class="mt-8 hidden">
-          <h2 class="flex items-center gap-2 font-display text-lg font-semibold text-white">
-            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-base">🎣</span> Aktivitas Job
-          </h2>
-          <div id="activity-grid" class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
-        </section>
-
-        <!-- jobs: sidejob / truck / farmer / mechanic / taxi -->
-        <section id="jobs-section" class="mt-8 hidden">
-          <h2 class="flex items-center gap-2 font-display text-lg font-semibold text-white">
-            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-base">💼</span> Pekerjaan Lain
-          </h2>
-          <div id="jobs-grid" class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
-        </section>
-
-        <!-- ledger -->
-        <section id="ledger-section" class="mt-8 hidden">
-          <div class="rounded-2xl border border-white/[0.07] bg-ink-900/50 p-6">
-            <h2 class="flex items-center gap-2 font-display text-lg font-semibold text-white">
-              <span>💰</span> Ledger Keuangan
-            </h2>
-            <div id="ledger-cards" class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"></div>
-          </div>
-        </section>
-
-        <!-- comparison -->
-        <section id="comparison-section" class="mt-12 hidden">
-          <h2 class="font-display text-xl font-semibold text-white">Perbandingan Karakter</h2>
-          <p class="mt-1 text-sm text-slate-400">Rekap semua karakter yang sudah dimuat, dari Fishing sampai Farmer.</p>
-          <div id="comparison-grid" class="mt-5 grid gap-4 md:grid-cols-2"></div>
-        </section>
-
-        <!-- ignored files note -->
-        <p id="ignored-note" class="mt-8 hidden text-xs text-slate-600"></p>
-      </div>
     </main>
 
     <footer class="border-t border-white/[0.06] bg-ink-950">
       <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-8 sm:flex-row sm:px-8">
         <p class="text-center text-xs text-slate-500">
-          Statistik dihitung dari data NotchClone milikmu — dari server statistik pribadi atau file yang kamu buka di browser.
+          Statistik dihitung dari snapshot karakter yang diunggah lewat NotchClone — data publik saja.
         </p>
         <p class="text-xs text-slate-600">© 2026 NotchClone · MIT License</p>
       </div>

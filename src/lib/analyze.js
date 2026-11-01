@@ -34,7 +34,7 @@ export const ACTIVITY_JOBS = [
   { id: 'pawn', label: 'Pawn', emoji: '🏷️', noun: 'item' },
 ];
 
-const SIDEJOB_JOBS = [
+export const SIDEJOB_JOBS = [
   { id: 'baggage', label: 'Baggage', emoji: '🧳' },
   { id: 'courier', label: 'Courier', emoji: '📦' },
   { id: 'forklift', label: 'Forklift', emoji: '📦' },
@@ -44,7 +44,7 @@ const SIDEJOB_JOBS = [
   { id: 'trashmaster', label: 'Trashmaster', emoji: '🗑️' },
 ];
 
-const TRUCK_JOBS = [
+export const TRUCK_JOBS = [
   { id: 'hauling', label: 'Hauling', emoji: '🚛' },
   { id: 'trucker', label: 'Trucker', emoji: '📦' },
 ];
@@ -71,7 +71,10 @@ function activityJobMeta(id) {
 
 export function analyzeActivity(events) {
   const jobs = new Map(
-    ACTIVITY_JOBS.map((j) => [j.id, { ...j, gained: 0, sold: 0, money: 0, grams: 0, events: 0 }]),
+    ACTIVITY_JOBS.map((j) => [
+      j.id,
+      { ...j, gained: 0, sold: 0, money: 0, grams: 0, events: 0, items: new Map() },
+    ]),
   );
   const total = { gained: 0, sold: 0, money: 0, grams: 0, events: 0 };
 
@@ -83,6 +86,8 @@ export function analyzeActivity(events) {
 
     const kind = e.kind;
     const money = toNum(e.money);
+    const qty = e.qty != null ? toNum(e.qty) : 1;
+
     if (SELL_KINDS.has(kind)) {
       job.money += money;
       total.money += money;
@@ -90,18 +95,42 @@ export function analyzeActivity(events) {
       total.sold += toNum(e.qty);
     }
     if (GAIN_KINDS.has(kind)) {
-      const q = e.qty != null ? toNum(e.qty) : 1;
-      job.gained += q || 1;
-      total.gained += q || 1;
+      job.gained += qty || 1;
+      total.gained += qty || 1;
     }
     if (kind === 'catch') {
       job.grams += toNum(e.weight);
       total.grams += toNum(e.weight);
     }
+
+    // Per-item breakdown. Fishing keeps the species ("Ocean fish", "River
+    // fish", "Lake fish"), prospector/forager keep the collected item. The
+    // leaderboard turns these into extra sortable columns.
+    if (e.item) {
+      const row = job.items.get(e.item) || {
+        name: String(e.item),
+        gained: 0,
+        sold: 0,
+        money: 0,
+        grams: 0,
+        events: 0,
+      };
+      row.events += 1;
+      if (SELL_KINDS.has(kind)) {
+        row.money += money;
+        row.sold += toNum(e.qty);
+      }
+      if (GAIN_KINDS.has(kind)) row.gained += qty || 1;
+      if (kind === 'catch') row.grams += toNum(e.weight);
+      job.items.set(e.item, row);
+    }
   }
 
   const rows = [...jobs.values()].map((j) => ({
     ...j,
+    items: [...j.items.values()]
+      .map((it) => ({ ...it, count: it.gained > 0 ? it.gained : it.sold }))
+      .sort((a, b) => b.count - a.count || b.money - a.money),
     // Primary count for a card: gained items for collecting jobs, sold units
     // for the sell-only jobs (recycling / pawn).
     count: j.gained > 0 ? j.gained : j.sold,
@@ -164,10 +193,19 @@ export function analyzeFarmer(events) {
 
 // ------------------------------------------------------------------ sidejob
 
+/* Chat lines spell ores inconsistently ("gold ore" vs "DIAMOND"). Normalise to
+ * a single sortable label so the table shows one Gold / Diamond column. */
+function prettyItem(name) {
+  const raw = String(name || '').trim();
+  if (!raw) return '';
+  const base = raw.replace(/\s+ore$/i, '').trim() || raw;
+  return base.charAt(0).toUpperCase() + base.slice(1).toLowerCase();
+}
+
 function analyzeSidejobGroup(events, group) {
   const meta = group === 'truck' ? TRUCK_JOBS : SIDEJOB_JOBS;
   const jobs = new Map(
-    meta.map((j) => [j.id, { ...j, money: 0, payouts: 0, events: 0 }]),
+    meta.map((j) => [j.id, { ...j, money: 0, payouts: 0, events: 0, items: new Map() }]),
   );
   const total = { money: 0, payouts: 0, events: 0 };
 
@@ -179,7 +217,15 @@ function analyzeSidejobGroup(events, group) {
         .split('-')
         .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
         .join(' ');
-      job = { id: e.job, label: label || 'Job', emoji: '🔧', money: 0, payouts: 0, events: 0 };
+      job = {
+        id: e.job,
+        label: label || 'Job',
+        emoji: '🔧',
+        money: 0,
+        payouts: 0,
+        events: 0,
+        items: new Map(),
+      };
       jobs.set(e.job, job);
     }
     job.events += 1;
@@ -190,10 +236,25 @@ function analyzeSidejobGroup(events, group) {
       total.money += toNum(e.money);
       total.payouts += 1;
     }
+
+    // Miner ores (and trucker crates) carry `item`. Group by the normalised
+    // label so "gold ore" and "DIAMOND" become Gold / Diamond columns.
+    if (e.item) {
+      const label = prettyItem(e.item);
+      const row = job.items.get(label) || { name: label, count: 0, money: 0, quality: 0 };
+      row.count += Number(e.qty) || 1;
+      row.money += toNum(e.money);
+      if (e.quality) row.quality = Number(e.quality);
+      job.items.set(label, row);
+    }
   }
 
   const rows = [...jobs.values()]
     .filter((j) => j.events > 0)
+    .map((j) => ({
+      ...j,
+      items: [...j.items.values()].sort((a, b) => b.count - a.count || b.money - a.money),
+    }))
     .sort((a, b) => b.money - a.money || b.payouts - a.payouts);
 
   return { rows: rows.slice(0, 8), total };
@@ -246,18 +307,47 @@ export function analyzeMechanic(events) {
 
 // --------------------------------------------------------------------- taxi
 
-const PASSENGER_RE = /transport of passenger|passenger/i;
+// Mirrors the desktop tracker (src/main/taxi.js): a "Transport of passenger …"
+// row is one delivered passenger. The duty line can carry a bonus passenger
+// ride, which is counted separately so the two never get mixed up.
+const DELIVERY_RE = /^Transport of passenger\b/i;
+const BONUS_RIDE_RE = /bonus\b.*passenger ride/i;
+const DUTY_RE = /^Job duty payment\b/i;
+const CANCELLED_RE = /cancelled order/i;
 
 export function analyzeTaxi(data) {
   const rows = Array.isArray(data && data.rows) ? data.rows : [];
   let income = 0;
-  let passengers = 0;
+  let deliveries = 0;
+  let bonusRides = 0;
+  let dutyPayments = 0;
+  let cancelled = 0;
+  let other = 0;
+
   for (const r of rows) {
     income += toNum(r.amount);
-    if (PASSENGER_RE.test(String(r.reason || ''))) passengers += 1;
+    const reason = String((r && r.reason) || '');
+    if (DELIVERY_RE.test(reason)) deliveries += 1;
+    else if (BONUS_RIDE_RE.test(reason)) bonusRides += 1;
+    else if (CANCELLED_RE.test(reason)) cancelled += 1;
+    else if (DUTY_RE.test(reason)) dutyPayments += 1;
+    else other += 1;
   }
+
   const pending = data && data.total && toNum(data.total.amount) > 0 ? toNum(data.total.amount) : 0;
-  return { income, passengers, records: rows.length, pending };
+  return {
+    income,
+    // Any passenger ride (strict delivery + bonus ride), matching the old
+    // public number while `deliveries` keeps the strict count.
+    passengers: deliveries + bonusRides,
+    deliveries,
+    bonusRides,
+    dutyPayments,
+    cancelled,
+    other,
+    records: rows.length,
+    pending,
+  };
 }
 
 // -------------------------------------------------------------------- ledger
