@@ -1,7 +1,7 @@
-# NotchClone — Website
+# NotchRP — Website
 
-Landing page showcase untuk **NotchClone**, Windows Dynamic Island / notch overlay
-untuk GTA San Andreas (SA-MP / open.mp).
+Landing page untuk **NotchRP**, overlay Dynamic Island untuk GTA San Andreas
+(SA-MP / open.mp). Tambahkan link download installer langsung dari feed.
 
 Dibangun dengan **Vite + Tailwind CSS** (single-page, statis). Bahasa content: **Indonesia**.
 
@@ -29,7 +29,7 @@ website/
 
 `stats.html` adalah **leaderboard publik** untuk semua karakter yang diunggah
 lewat aplikasi desktop (`Settings → Stats → Upload your character`). Halaman
-membaca backend NotchClone:
+membaca backend NotchRP:
 
 1. `GET /api/characters` — daftar karakter publik.
 2. `GET /api/characters/:slug` — snapshot file lengkap satu karakter.
@@ -60,7 +60,7 @@ Bila variabel ini kosong, build memakai URL produksi bawaan di `src/stats.js`.
 CORS di backend mengizinkan origin mana pun untuk pembacaan; endpoint unggah
 tetap memerlukan token dan hanya dipakai aplikasi desktop.
 
-Logika agregasi di `src/lib/analyze.js` meniru tracker NotchClone
+Logika agregasi di `src/lib/analyze.js` meniru tracker NotchRP
 (`activity.js` / `sidejob.js` / `farmer.js` / `mechanic.js` / `taxi.js` /
 `ledger.js` / `playtime.js`) sehingga angkanya konsisten dengan overlay.
 

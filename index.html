@@ -3,542 +3,358 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NotchClone — Dynamic Island Overlay untuk GTA San Andreas</title>
+    <title>NotchRP — overlay roleplay untuk GTA San Andreas</title>
     <meta
       name="description"
-      content="NotchClone adalah overlay Windows berbentuk Dynamic Island / notch untuk GTA San Andreas (SA-MP / open.mp). Lacak playtime, uang, taxi, farmer, mekanik, terjemahan chat, lirik musik, dan banyak lagi — tanpa pernah mencuri fokus dari game."
+      content="NotchRP adalah overlay Dynamic Island untuk GTA San Andreas (SA-MP / open.mp): playtime, uang, taxi, farmer, mekanik, terjemahan chat, lirik musik — tanpa pernah mencuri fokus dari game."
     />
-    <meta property="og:title" content="NotchClone — Dynamic Island Overlay untuk GTA San Andreas" />
+    <meta property="og:title" content="NotchRP — overlay roleplay untuk GTA San Andreas" />
     <meta
       property="og:description"
-      content="Overlay transparan always-on-top dengan modul interaktif untuk SA-MP / open.mp: playtime, ledger, taxi, farmer, mekanik, terjemahan, media & lirik."
+      content="Bilah kecil di atas layar untuk SA-MP / open.mp: playtime, ledger, job stats, terjemahan, media & lirik. Update otomatis."
     />
     <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <script type="module" src="/src/main.js"></script>
   </head>
 
-  <body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-accent/30 selection:text-white">
-    <!-- ============================ NAVBAR ============================ -->
+  <!-- Straight link to the newest installer (stable name, updated every release). -->
+  <body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-accent/30 selection:text-white"
+        data-download-url="https://updates-notch.elms-ppkn-smego10.my.id/NotchRP-Setup.exe">
+    <!-- ============================ NAV ============================ -->
     <header class="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-ink-950/70 backdrop-blur-xl">
-      <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" class="group flex items-center gap-3">
-          <!-- Notch pill logo -->
-          <span class="relative flex h-9 w-24 items-center justify-center rounded-b-2xl bg-black ring-1 ring-white/10">
-            <span class="h-1.5 w-10 rounded-full bg-accent shadow-[0_0_16px_2px_rgba(124,156,255,0.7)] transition-all group-hover:w-14"></span>
+      <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <a href="#top" class="flex items-center gap-3">
+          <span class="relative flex h-8 w-20 items-center justify-center rounded-b-2xl bg-black ring-1 ring-white/10">
+            <span class="h-1.5 w-8 rounded-full bg-accent"></span>
           </span>
           <span class="font-display text-lg font-semibold tracking-tight text-white">
-            Notch<span class="text-accent">Clone</span>
+            Notch<span class="text-accent">RP</span>
           </span>
         </a>
 
-        <div class="hidden items-center gap-1 md:flex">
-          <a href="#fitur" class="rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white">Fitur</a>
-          <a href="#cara-kerja" class="rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white">Cara Kerja</a>
-          <a href="#modul" class="rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white">Modul</a>
-          <a href="./stats.html" class="rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white">Statistik</a>
-          <a href="#instalasi" class="rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white">Instalasi</a>
+        <div class="hidden items-center gap-6 md:flex">
+          <a href="#fitur" class="text-sm text-slate-400 transition hover:text-white">Fitur</a>
+          <a href="#modul" class="text-sm text-slate-400 transition hover:text-white">Modul</a>
+          <a href="./stats.html" class="text-sm text-slate-400 transition hover:text-white">Statistik</a>
         </div>
 
-        <div class="flex items-center gap-2">
-          <a
-            href="#instalasi"
-            class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-ink-950 shadow-[0_0_24px_rgba(124,156,255,0.35)] transition hover:bg-accent-400"
-          >
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M4 21h16" />
-            </svg>
-            Unduh
-          </a>
-        </div>
+        <a
+          href="https://updates-notch.elms-ppkn-smego10.my.id/NotchRP-Setup.exe"
+          class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink-950 transition hover:bg-accent-400"
+        >
+          Unduh
+        </a>
       </nav>
     </header>
 
-    <!-- ============================ HERO ============================ -->
-    <main id="top" class="relative overflow-hidden pt-16">
-      <!-- Background glow -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-        <div class="absolute left-1/2 top-[-12rem] h-[34rem] w-[64rem] -translate-x-1/2 rounded-full bg-accent/15 blur-[130px]"></div>
-        <div class="absolute right-[-6rem] top-[26rem] h-72 w-72 rounded-full bg-fuchsia-500/10 blur-[110px]"></div>
-        <div class="absolute left-[-8rem] top-[40rem] h-72 w-72 rounded-full bg-cyan-400/10 blur-[110px]"></div>
-        <!-- grid -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"></div>
-      </div>
-
-      <section class="mx-auto max-w-7xl px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
-        <div class="mx-auto max-w-3xl text-center">
-          <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xs font-medium text-accent-400">
-            <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
-            </span>
-            Overlay Windows · SA-MP / open.mp
-          </span>
-
-          <h1 class="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl">
-            Kamu main. <br class="sm:hidden" />
-            Notch-nya yang
-            <span class="bg-gradient-to-r from-accent-400 via-accent to-sky-300 bg-clip-text text-transparent">mencatat semuanya.</span>
-          </h1>
-
-          <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400">
-            NotchClone adalah <strong class="text-slate-200">Dynamic Island / notch overlay</strong> untuk
-            GTA San Andreas. Sebuah bilah kecil di atas layar yang melacak playtime, uang, taxi, farmer,
-            mekanik, terjemahan chat, dan lirik musik — semuanya transparan, always-on-top, dan
-            <strong class="text-slate-200">tidak pernah mencuri fokus</strong> dari game kamu.
-          </p>
-
-          <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#instalasi"
-              class="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-ink-950 shadow-[0_0_32px_rgba(124,156,255,0.4)] transition hover:-translate-y-0.5 hover:bg-accent-400"
-            >
-              Mulai Sekarang
-              <svg class="h-4 w-4 transition group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
-            </a>
-            <a
-              href="#modul"
-              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/10"
-            >
-              Lihat Modul
-            </a>
-          </div>
-
-          <div class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500">
-            <span class="inline-flex items-center gap-1.5"><svg class="h-3.5 w-3.5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>Windows 10/11</span>
-            <span class="inline-flex items-center gap-1.5"><svg class="h-3.5 w-3.5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>Tanpa instalasi berat</span>
-            <span class="inline-flex items-center gap-1.5"><svg class="h-3.5 w-3.5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>Gratis & open-source</span>
-          </div>
+    <main id="top" class="pt-16">
+      <!-- ============================ HERO ============================ -->
+      <section class="relative overflow-hidden">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+          <div class="absolute left-1/2 top-[-10rem] h-[28rem] w-[50rem] -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]"></div>
         </div>
 
-        <!-- ==================== NOTCH MOCKUP ==================== -->
-        <div class="relative mx-auto mt-16 max-w-4xl">
-          <div class="relative rounded-3xl border border-white/10 bg-ink-900/80 p-3 shadow-2xl shadow-black/60 backdrop-blur sm:p-4">
-            <!-- fake window chrome -->
-            <div class="flex items-center justify-between border-b border-white/5 px-3 pb-3">
-              <div class="flex gap-1.5">
-                <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
-                <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
-                <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
-              </div>
-              <span class="text-xs font-medium text-slate-500">GTA San Andreas — Multiplayer</span>
-              <span class="w-12"></span>
+        <div class="mx-auto max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+              Dynamic Island · GTA San Andreas · SA-MP / open.mp
+            </p>
+            <h1 class="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-6xl">
+              Kamu main roleplay.<br />
+              <span class="text-accent-400">NotchRP</span> yang mencatatnya.
+            </h1>
+            <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400">
+              Bilah kecil di atas layar yang membaca chatlog SA-MP: playtime, uang, taxi, farmer, mekanik,
+              terjemahan chat, lirik musik. Transparan, always-on-top, dan tidak pernah mencuri fokus dari game.
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="https://updates-notch.elms-ppkn-smego10.my.id/NotchRP-Setup.exe"
+                class="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink-950 transition hover:bg-accent-400"
+              >
+                Unduh NotchRP
+              </a>
+              <a
+                href="./stats.html"
+                class="inline-flex items-center rounded-lg border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/5"
+              >
+                Statistik Player
+              </a>
             </div>
-
-            <!-- notch demo -->
-            <div id="notch-demo" class="relative mx-auto mt-6 w-fit">
-              <!-- collapsed pill -->
-              <div id="notch-pill" class="relative flex h-9 items-center justify-between gap-3 rounded-b-[20px] bg-black px-4 ring-1 ring-white/10">
-                <span class="text-xs font-semibold text-white">12:47</span>
-                <span class="flex items-center gap-1.5">
-                  <span class="flex h-4 items-end gap-[2px]">
-                    <span class="eq-bar w-[2px] rounded-full bg-accent"></span>
-                    <span class="eq-bar w-[2px] rounded-full bg-accent"></span>
-                    <span class="eq-bar w-[2px] rounded-full bg-accent"></span>
-                    <span class="eq-bar w-[2px] rounded-full bg-accent"></span>
-                  </span>
-                </span>
-                <span class="text-[10px] text-slate-400">AFK</span>
-              </div>
-
-              <!-- expanded panel -->
-              <div id="notch-panel" class="notch-panel absolute left-1/2 top-12 w-[420px] max-w-[86vw] -translate-x-1/2 rounded-2xl border border-white/10 bg-ink-850 p-4 text-left shadow-2xl shadow-black/70">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Home</span>
-                  <span class="rounded-md bg-accent/15 px-2 py-0.5 text-[11px] font-medium text-accent-400">Online 3.4 jam</span>
-                </div>
-                <div class="mt-3 grid grid-cols-3 gap-2">
-                  <div class="rounded-xl bg-white/[0.04] p-3">
-                    <div class="text-[10px] uppercase tracking-wide text-slate-500">Money</div>
-                    <div class="mt-1 font-mono text-sm font-semibold text-emerald-400">$41.310</div>
-                  </div>
-                  <div class="rounded-xl bg-white/[0.04] p-3">
-                    <div class="text-[10px] uppercase tracking-wide text-slate-500">Bank</div>
-                    <div class="mt-1 font-mono text-sm font-semibold text-white">$128.000</div>
-                  </div>
-                  <div class="rounded-xl bg-white/[0.04] p-3">
-                    <div class="text-[10px] uppercase tracking-wide text-slate-500">Net +Hari</div>
-                    <div class="mt-1 font-mono text-sm font-semibold text-accent-400">+$8.120</div>
-                  </div>
-                </div>
-                <div class="mt-3 flex flex-wrap gap-1.5">
-                  <span class="rounded-md bg-white/[0.04] px-2 py-1 text-[10px] text-slate-400">Taxi <b class="text-white">$2.410</b></span>
-                  <span class="rounded-md bg-white/[0.04] px-2 py-1 text-[10px] text-slate-400">Farmer <b class="text-white">$1.820</b></span>
-                  <span class="rounded-md bg-white/[0.04] px-2 py-1 text-[10px] text-slate-400">Mekanik <b class="text-white">$900</b></span>
-                  <span class="rounded-md bg-white/[0.04] px-2 py-1 text-[10px] text-slate-400">Sidejob <b class="text-white">$3.200</b></span>
-                </div>
-              </div>
-            </div>
-
-            <p class="mt-14 pb-2 text-center text-xs text-slate-500">
-              Arahkan kursor ke bilah untuk melihat panel lengkapnya —
-              <span class="text-slate-400">overlay tidak pernah merebut fokus dari game.</span>
+            <p class="mt-4 text-xs text-slate-500">
+              Windows 10/11 · x64 · installer ±97 MB · pembaruan otomatis dari dalam app
             </p>
           </div>
+
+          <!-- ==================== NOTCH MOCKUP ==================== -->
+          <div class="relative mx-auto mt-16 max-w-3xl">
+            <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0c0c13] to-[#07070b] px-6 pb-10 shadow-2xl shadow-black/60 sm:px-8">
+              <div class="flex h-12 items-center justify-between text-[11px] text-slate-500">
+                <span>GTA San Andreas</span>
+                <span>SA-MP · 1920×1080</span>
+              </div>
+
+              <div id="notch-demo" class="relative mx-auto w-fit">
+                <div id="notch-pill" class="relative flex h-9 items-center justify-between gap-3 rounded-b-[20px] bg-black px-4 ring-1 ring-white/10">
+                  <span class="text-xs font-semibold text-white">12:47</span>
+                  <span class="flex h-4 items-end gap-[2px]">
+                    <i class="eq-bar w-[2px] rounded-full bg-accent"></i>
+                    <i class="eq-bar w-[2px] rounded-full bg-accent"></i>
+                    <i class="eq-bar w-[2px] rounded-full bg-accent"></i>
+                    <i class="eq-bar w-[2px] rounded-full bg-accent"></i>
+                  </span>
+                  <span class="text-[10px] text-slate-400">AFK</span>
+                </div>
+
+                <div id="notch-panel" class="notch-panel absolute left-1/2 top-12 w-[420px] max-w-[86vw] -translate-x-1/2 rounded-2xl border border-white/10 bg-ink-850 p-4 text-left shadow-2xl shadow-black/70">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Home</span>
+                    <span class="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-slate-300">Online 3.4 jam</span>
+                  </div>
+                  <div class="mt-3 grid grid-cols-3 gap-2">
+                    <div class="rounded-xl bg-white/[0.04] p-3">
+                      <div class="text-[10px] uppercase tracking-wide text-slate-500">Money</div>
+                      <div class="mt-1 font-mono text-sm font-semibold text-white">$41.310</div>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.04] p-3">
+                      <div class="text-[10px] uppercase tracking-wide text-slate-500">Bank</div>
+                      <div class="mt-1 font-mono text-sm font-semibold text-white">$128.000</div>
+                    </div>
+                    <div class="rounded-xl bg-white/[0.04] p-3">
+                      <div class="text-[10px] uppercase tracking-wide text-slate-500">Net hari ini</div>
+                      <div class="mt-1 font-mono text-sm font-semibold text-emerald-400">+$8.120</div>
+                    </div>
+                  </div>
+                  <p class="mt-3 text-[11px] leading-relaxed text-slate-500">
+                    Taxi $2.410 · Farmer $1.820 · Mekanik $900 · Sidejob $3.200
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex h-56 items-center justify-center sm:h-64">
+                <p class="px-4 text-center text-sm leading-relaxed text-slate-600">
+                  Arahkan kursor ke bilah untuk membuka panel lengkap —<br />
+                  overlay tidak pernah merebut fokus dari game.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- ============================ STATS STRIP ============================ -->
-      <section class="border-y border-white/[0.05] bg-ink-900/40">
-        <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
-          <div class="px-6 py-8 text-center">
-            <div class="font-display text-3xl font-bold text-white sm:text-4xl">18+</div>
-            <div class="mt-1 text-sm text-slate-500">Modul interaktif</div>
-          </div>
-          <div class="px-6 py-8 text-center">
-            <div class="font-display text-3xl font-bold text-white sm:text-4xl">Always-on-top</div>
-            <div class="mt-1 text-sm text-slate-500">Tanpa steal-focus</div>
-          </div>
-          <div class="px-6 py-8 text-center">
-            <div class="font-display text-3xl font-bold text-white sm:text-4xl">Multi-karakter</div>
-            <div class="mt-1 text-sm text-slate-500">Per akun SA-MP</div>
-          </div>
-          <div class="px-6 py-8 text-center">
-            <div class="font-display text-3xl font-bold text-white sm:text-4xl">Silent fetch</div>
-            <div class="mt-1 text-sm text-slate-500">/stats · /paychecks · /mp</div>
-          </div>
-        </div>
-      </section>
+      <!-- ============================ FITUR ============================ -->
+      <section id="fitur" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
+        <h2 class="max-w-xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Untuk pemain roleplay yang peduli detail
+        </h2>
 
-      <!-- ============================ FITUR UTAMA ============================ -->
-      <section id="fitur" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Dibuat untuk pemain yang tak mau ketinggalan detail</h2>
-          <p class="mt-4 text-lg text-slate-400">Semua data roleplay kamu, terangkum di satu bilah kecil yang elegan.</p>
-        </div>
-
-        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-accent/10 blur-2xl transition group-hover:bg-accent/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Playtime 14 Hari</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Estimasi waktu online untuk aturan server <em>“jaga property minimal 1 jam dalam 14 hari”</em>. Paus otomatis saat game alt-tab atau AFK.</p>
+        <div class="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">01</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Playtime 14 hari</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Estimasi jam online sesuai aturan server <em>“jaga property 1 jam dalam 14 hari”</em>.
+              Otomatis berhenti saat AFK atau saat game tidak sedang aktif.
+            </p>
           </article>
 
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Ledger Uang Harian</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Cash & bank dari <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/stats</code>, plus pemasukan/pengeluaran per hari dari semua job secara otomatis.</p>
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">02</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Ledger uang harian</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Cash dan bank dari <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/stats</code>,
+              plus pemasukan dan pengeluaran per hari dari semua job — dihitung otomatis.
+            </p>
           </article>
 
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-sky-500/10 blur-2xl transition group-hover:bg-sky-500/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-500/15 text-sky-400">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Silent Fetch</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Ambil <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/stats</code>, <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/paychecks</code> & <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/mp</code> secara senyap — dialog tidak pernah muncul di layar game.</p>
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">03</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Statistik per job</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Shift taxi, panen farmer, repair mekanik, sidejob, sampai ore miner — semuanya tercatat
+              dan bisa diunggah ke <a class="text-accent-400 underline-offset-2 hover:underline" href="./stats.html">leaderboard publik</a>.
+            </p>
           </article>
 
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-fuchsia-500/10 blur-2xl transition group-hover:bg-fuchsia-500/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-fuchsia-500/15 text-fuchsia-400">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M4 15a8 8 0 0 1 16 0"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Terjemahan Chat (AI)</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Terjemahkan chat masuk/keluar dengan Ollama, Gemini, Libre, OpenRouter, atau Groq. Punya gaya custom per arah percakapan.</p>
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">04</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Fetch senyap via plugin</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/stats</code>,
+              <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/paychecks</code>
+              dan <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/mp</code> diambil
+              lewat plugin tanpa dialog yang pernah muncul di layar.
+            </p>
           </article>
 
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-amber-500/10 blur-2xl transition group-hover:bg-amber-500/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Media & Lirik Tersinkron</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Tampilkan lirik karaoke yang tersinkron + pemutar video YouTube/Vimeo di dalam notch, tanpa keluar dari game.</p>
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">05</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Terjemahan & lirik</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Chat dua arah via provider AI favoritmu, lirik karaoke tersinkron, dan pemutar video
+              YouTube/Vimeo langsung di dalam notch.
+            </p>
           </article>
 
-          <!-- card -->
-          <article class="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 transition hover:border-accent/40 hover:bg-ink-850">
-            <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-rose-500/10 blur-2xl transition group-hover:bg-rose-500/20"></div>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-500/15 text-rose-400">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.08V8a2 2 0 0 0-2-2h-4V4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6"/><path d="M14 17h6"/><path d="M17 14v6"/></svg>
-            </div>
-            <h3 class="mt-4 font-display text-lg font-semibold text-white">Multi-Karakter</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">Satu akun SA-MP bisa main banyak karakter. Setiap data game tersimpan rapi per karakter dan berpindah otomatis saat ganti karakter.</p>
+          <article class="border-t border-white/[0.08] pt-6">
+            <span class="font-mono text-xs text-accent-400">06</span>
+            <h3 class="mt-2 font-display text-lg font-semibold text-white">Multi-karakter</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Satu akun SA-MP, banyak karakter: data tersimpan per karakter dan berpindah otomatis
+              saat kamu login dengan karakter lain.
+            </p>
           </article>
         </div>
       </section>
 
       <!-- ============================ CARA KERJA ============================ -->
-      <section id="cara-kerja" class="relative scroll-mt-24 border-y border-white/[0.05] bg-ink-900/40 py-24">
-        <div class="mx-auto max-w-7xl px-5 sm:px-8">
-          <div class="mx-auto max-w-2xl text-center">
-            <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Bagaimana cara kerjanya</h2>
-            <p class="mt-4 text-lg text-slate-400">NotchClone membaca chatlog SA-MP dan memanfaatkan ASI plugin untuk fetch data secara senyap — tanpa injeksi yang berbahaya.</p>
-          </div>
-
-          <div class="mt-14 grid gap-8 lg:grid-cols-3">
-            <!-- step -->
-            <div class="relative">
-              <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-ink-950">1</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-accent/40 to-transparent"></div>
-              </div>
-              <h3 class="mt-5 font-display text-lg font-semibold text-white">Baca chatlog.txt</h3>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Semua event game (gaji, jual, shift taxi, repair) dianalisis dari chatlog SA-MP secara real-time, lalu diagregasi per hari.</p>
+      <section class="border-y border-white/[0.05] bg-ink-900/40 py-20">
+        <div class="mx-auto max-w-6xl px-5 sm:px-8">
+          <div class="grid gap-10 lg:grid-cols-3">
+            <div>
+              <h2 class="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">Cara kerjanya sederhana</h2>
+              <p class="mt-3 text-sm leading-relaxed text-slate-400">
+                Tidak ada injeksi yang berbahaya — NotchRP membaca chatlog yang sudah ditulis SA-MP
+                dan berbicara dengan plugin ASI kecil untuk fetch dialog secara senyap.
+              </p>
             </div>
-            <!-- step -->
-            <div class="relative">
-              <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-ink-950">2</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-accent/40 to-transparent"></div>
-              </div>
-              <h3 class="mt-5 font-display text-lg font-semibold text-white">Fetch senyap via ASI</h3>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400"><code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/stats</code>, <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/paychecks</code> & <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">/mp</code> diambil lewat dialog yang ditelan — tidak pernah mengganggu tampilan game.</p>
-            </div>
-            <!-- step -->
-            <div class="relative">
-              <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-ink-950">3</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-accent/40 to-transparent"></div>
-              </div>
-              <h3 class="mt-5 font-display text-lg font-semibold text-white">Render jadi notch elegan</h3>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Semuanya tampil di bilah transparan always-on-top yang membesar saat disentuh kursor, lalu mengecil kembali saat kamu kembali main.</p>
-            </div>
+            <ol class="grid gap-8 sm:grid-cols-3 lg:col-span-2">
+              <li>
+                <span class="font-mono text-xs text-accent-400">01</span>
+                <h3 class="mt-2 font-display text-base font-semibold text-white">Baca chatlog.txt</h3>
+                <p class="mt-1.5 text-sm text-slate-400">Gaji, jual hasil, shift, repair — dianalisis real-time dari chatlog SA-MP.</p>
+              </li>
+              <li>
+                <span class="font-mono text-xs text-accent-400">02</span>
+                <h3 class="mt-2 font-display text-base font-semibold text-white">Fetch senyap</h3>
+                <p class="mt-1.5 text-sm text-slate-400">Dialog <span class="text-slate-300">/stats</span>, <span class="text-slate-300">/paychecks</span> dan <span class="text-slate-300">/mp</span> diambil tanpa pernah muncul di layar; datanya langsung diparse ke tracker.</p>
+              </li>
+              <li>
+                <span class="font-mono text-xs text-accent-400">03</span>
+                <h3 class="mt-2 font-display text-base font-semibold text-white">Render ke notch</h3>
+                <p class="mt-1.5 text-sm text-slate-400">Semua tampil di bilah transparan yang membesar saat disentuh kursor dan mengecil sendiri saat main.</p>
+              </li>
+            </ol>
           </div>
         </div>
       </section>
 
       <!-- ============================ MODUL ============================ -->
-      <section id="modul" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Semua modul, satu notch</h2>
-          <p class="mt-4 text-lg text-slate-400">Pilih modul mana yang aktif. Semua bisa disesuaikan dari jendela Settings.</p>
-        </div>
+      <section id="modul" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
+        <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Semua modul, satu bilah</h2>
+        <p class="mt-3 max-w-xl text-slate-400">Aktifkan atau matikan tiap module dari Settings. Yang tidak kamu butuh tinggal tidak ada.</p>
 
-        <div class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- module items: name, desc, icon key -->
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
-            <div><h3 class="font-semibold text-white">Home</h3><p class="mt-0.5 text-sm text-slate-400">Ringkasan uang, bank, net hari ini, notifikasi, pengingat playtime & property.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-            <div><h3 class="font-semibold text-white">Timer</h3><p class="mt-0.5 text-sm text-slate-400">Timer, stopwatch, dan alarm langsung di bilah notch.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 12h8M8 18h5"/></svg></span>
-            <div><h3 class="font-semibold text-white">Calc</h3><p class="mt-0.5 text-sm text-slate-400">Kalkulator aman (tanpa <code class="font-mono text-xs">eval</code>) untuk hitung harga in-game.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span>
-            <div><h3 class="font-semibold text-white">Links</h3><p class="mt-0.5 text-sm text-slate-400">Simpan link/url cepat yang sering kamu buka saat main.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg></span>
-            <div><h3 class="font-semibold text-white">Anim</h3><p class="mt-0.5 text-sm text-slate-400">Kumpulan animasi roleplay yang bisa kamu panggil cepat.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h13M9 3v2M4 5v14a2 2 0 0 0 2 2h11a1 1 0 0 0 1-1V5"/><path d="m18 9 3 3-3 3"/></svg></span>
-            <div><h3 class="font-semibold text-white">Translate</h3><p class="mt-0.5 text-sm text-slate-400">Terjemahan chat dua arah dengan beragam provider AI & gaya custom.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg></span>
-            <div><h3 class="font-semibold text-white">RP Analyst</h3><p class="mt-0.5 text-sm text-slate-400">Analisa finansial & statistik roleplay: gaji terakhir, total, dan tren penghasilan.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5H16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-5"/><circle cx="7" cy="17" r="1"/><circle cx="16" cy="17" r="1"/></svg></span>
-            <div><h3 class="font-semibold text-white">Taxi</h3><p class="mt-0.5 text-sm text-slate-400">Lacak shift, orderan, dan auto-reply SMS order taxi.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9-6-18-3 9H2"/></svg></span>
-            <div><h3 class="font-semibold text-white">Activity</h3><p class="mt-0.5 text-sm text-slate-400">Catat tangkapan, panen, temuan & penjualan untuk tiap job per hari.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-3 3V13"/><path d="m3 8 3-3v6"/><path d="m21 12-9-9 5 9-5 9z"/></svg></span>
-            <div><h3 class="font-semibold text-white">Sidejob</h3><p class="mt-0.5 text-sm text-slate-400">Sidejob courier, miner, trash — lacak payout-nya.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
-            <div><h3 class="font-semibold text-white">Truck</h3><p class="mt-0.5 text-sm text-slate-400">Pelacakan kerja trucking & unloaded, dikelompokkan rapi.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-8 8-12 5 4 8 8 8 12a7 7 0 0 1-9 7z"/><path d="M12 20v-7"/></svg></span>
-            <div><h3 class="font-semibold text-white">Farmer</h3><p class="mt-0.5 text-sm text-slate-400">Beli bibit, jual hasil panen, dan laba per jenis tanaman.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
-            <div><h3 class="font-semibold text-white">Mekanik</h3><p class="mt-0.5 text-sm text-slate-400">Shift duty, jalur repair per kendaraan, dan pembayaran PAYINFO.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-            <div><h3 class="font-semibold text-white">Locs</h3><p class="mt-0.5 text-sm text-slate-400">Simpan & kelola titik lokasi penting di map.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
-            <div><h3 class="font-semibold text-white">Media</h3><p class="mt-0.5 text-sm text-slate-400">Lirik tersinkron + pemutar video YouTube/Vimeo & karaoke mode.</p></div>
-          </div>
-          <div class="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 p-4 transition hover:border-accent/30">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ink-800 text-accent"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
-            <div><h3 class="font-semibold text-white">System</h3><p class="mt-0.5 text-sm text-slate-400">Statistik sistem: CPU, RAM, baterai, dan info foreground app.</p></div>
-          </div>
+        <div class="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div><h3 class="text-sm font-semibold text-white">Home</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Ringkasan uang, bank, net hari ini, notifikasi dan pengingat playtime.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Timer</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Timer, stopwatch, dan alarm langsung di bilah notch.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Calculator</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Kalkulator aman tanpa <i>eval</i> untuk hitung harga in-game.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Links</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Simpan link cepat yang sering kamu buka saat bermain.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Animation</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Panggil animasi roleplay favorit tanpa mengetik command yang panjang.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Translate</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Terjemahan chat dua arah, gaya yang bisa kamu atur sendiri.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">RP Analyst</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Analisa finansial roleplay: gaji terakhir, total, tren penghasilan.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Taxi</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Shift, orderan, dan auto-reply SMS order taxi.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Activity</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Tangkapan fishing, panen, temuan & penjualan per hari.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Sidejob</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Miner, baggage, courier, sampai trashmaster beserta payout-nya.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Truck</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Tracking kerja trucking & pengeluaran muatan per trip.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Farmer</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Beli bibit, jual hasil panen, dan laba per tanaman.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Mekanik</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Shift duty, jalur repair per kendaraan, pembayaran PAYINFO.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Locations</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Simpan dan kelola titik penting di map, siap di share.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Media</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Lirik tersinkron + pemutar video YouTube/Vimeo & karaoke mode.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">System</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">CPU, RAM, baterai, dan info aplikasi yang sedang aktif.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">NotchChat</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Beri command langsung dari notch ke chat server.</p></div>
+          <div><h3 class="text-sm font-semibold text-white">Auto-update</h3><p class="mt-1 text-[13px] leading-relaxed text-slate-500">Update sendiri di background; tinggal restart saat sudah terunduh.</p></div>
         </div>
       </section>
 
-      <!-- ============================ STATISTIK PLAYER ============================ -->
-      <section id="statistik" class="relative scroll-mt-24 border-t border-white/[0.05] bg-ink-900/40 py-24">
-        <div class="mx-auto max-w-7xl px-5 sm:px-8">
-          <div class="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xs font-medium text-accent-400">
-                <span class="h-2 w-2 rounded-full bg-accent"></span>
-                Baru · Statistik Player
-              </span>
-              <h2 class="mt-5 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Upload satu karakter,<br />
-                lihat peringkatnya.
-              </h2>
-              <p class="mt-4 text-lg leading-relaxed text-slate-400">
-                Pilih karakter di aplikasi, lalu lihat posisinya di leaderboard publik —
-                dari <span class="text-slate-200">Job</span> dan
-                <span class="text-slate-200">Activity</span> sampai
-                <span class="text-slate-200">Mechanic, Farmer, Truck, Taxi</span> dan
-                <span class="text-slate-200">Sidejob</span>.
-              </p>
-              <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
-                <li class="flex items-start gap-2.5">
-                  <svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>
-                  <span><span class="text-slate-200">Settings → Stats</span> → tombol <span class="text-slate-200">Upload your character</span>, lalu pilih karakter.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>
-                  Tabel per section: sortir kolom, filter detail (ore miner, ikan, penumpang taxi), 50 baris per halaman.
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>
-                  <span>Hanya data publik yang diunggah — tidak ada file lokal yang dibaca di website.</span>
-                </li>
-              </ul>
-              <a href="./stats.html" class="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-ink-950 shadow-[0_0_32px_rgba(124,156,255,0.4)] transition hover:-translate-y-0.5 hover:bg-accent-400">
-                Buka Leaderboard
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-              </a>
-            </div>
-
-            <!-- preview card: one leaderboard section -->
-            <div class="relative">
-              <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-accent/10 blur-[80px]"></div>
-              <div class="rounded-3xl border border-white/10 bg-ink-900/80 p-5 shadow-2xl shadow-black/50 backdrop-blur">
-                <div class="flex items-center justify-between border-b border-white/5 pb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-sm">💼</span>
-                    <span class="font-display text-sm font-semibold text-white">Leaderboard · Job</span>
-                  </div>
-                  <span class="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400">3 player</span>
-                </div>
-                <div class="mt-2 space-y-0.5">
-                  <div class="flex items-center gap-2.5 border-b border-white/[0.04] py-2">
-                    <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#ffe17a] to-[#f0b429] text-[11px] font-bold text-[#1b1400]">1</span>
-                    <span class="flex-1 text-sm font-semibold text-white">Alexander_Dicky</span>
-                    <span class="text-sm font-bold text-emerald-400">$1,240.00</span>
-                  </div>
-                  <div class="flex items-center gap-2.5 border-b border-white/[0.04] py-2">
-                    <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#e8edf5] to-[#b9c2d0] text-[11px] font-bold text-[#16181d]">2</span>
-                    <span class="flex-1 text-sm font-semibold text-white">Noah_Ascendant</span>
-                    <span class="text-sm font-bold text-emerald-400">$860.00</span>
-                  </div>
-                  <div class="flex items-center gap-2.5 py-2">
-                    <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#f0b98a] to-[#c97a3d] text-[11px] font-bold text-[#1d1108]">3</span>
-                    <span class="flex-1 text-sm font-semibold text-white">Khaleed_Mactavish</span>
-                    <span class="text-sm font-bold text-emerald-400">$380.00</span>
-                  </div>
-                </div>
-                <div class="mt-3 flex flex-wrap gap-1.5">
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Job</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Activity</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Mechanic</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Farmer</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Truck</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Taxi</span>
-                  <span class="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-slate-400">Sidejob</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================ INSTALASI ============================ -->
-      <section id="instalasi" class="relative scroll-mt-24 border-t border-white/[0.05] bg-ink-900/40 py-24">
-        <div class="mx-auto max-w-4xl px-5 sm:px-8">
-          <div class="mx-auto max-w-2xl text-center">
-            <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Persyaratan & Cara Instalasi</h2>
-            <p class="mt-4 text-lg text-slate-400">Dibangun dengan Electron. Ringan, portabel, dan mudah dijalankan.</p>
-          </div>
-
-          <div class="mt-12 grid gap-5 md:grid-cols-3">
-            <div class="rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6">
-              <div class="text-xs font-semibold uppercase tracking-wider text-accent">OS</div>
-              <p class="mt-2 font-display text-lg font-semibold text-white">Windows 10 / 11</p>
-              <p class="mt-1 text-sm text-slate-400">Overlay memakai DWM composition Windows (win32).</p>
-            </div>
-            <div class="rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6">
-              <div class="text-xs font-semibold uppercase tracking-wider text-accent">Game</div>
-              <p class="mt-2 font-display text-lg font-semibold text-white">GTA San Andreas</p>
-              <p class="mt-1 text-sm text-slate-400">SA-MP / open.mp client (gta_sa.exe) dengan chatlog aktif.</p>
-            </div>
-            <div class="rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6">
-              <div class="text-xs font-semibold uppercase tracking-wider text-accent">Runtime</div>
-              <p class="mt-2 font-display text-lg font-semibold text-white">Electron 38</p>
-              <p class="mt-1 text-sm text-slate-400">Node.js untuk build dari sumber. Binary sudah pre-built.</p>
-            </div>
-          </div>
-
-          <div class="mt-10 rounded-2xl border border-white/[0.07] bg-ink-950/80 p-6 sm:p-8">
-            <h3 class="font-display text-lg font-semibold text-white">Jalankan dari sumber</h3>
-            <p class="mt-1 text-sm text-slate-400">Clone repo lalu install dependency dan jalankan Electron.</p>
-
-            <div class="mt-5 space-y-3 overflow-x-auto">
-              <div class="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-ink-900 px-4 py-3">
-                <span class="select-none font-mono text-xs text-slate-500">$</span>
-                <code class="font-mono text-sm text-slate-200">npm install</code>
-              </div>
-              <div class="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-ink-900 px-4 py-3">
-                <span class="select-none font-mono text-xs text-slate-500">$</span>
-                <code class="font-mono text-sm text-slate-200">npm start</code>
-              </div>
-              <div class="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-ink-900 px-4 py-3">
-                <span class="select-none font-mono text-xs text-slate-500">$</span>
-                <code class="font-mono text-sm text-slate-200">npm run dev</code>
-                <span class="ml-auto hidden text-xs text-slate-500 sm:inline"># mode developer</span>
-              </div>
-            </div>
-
-            <p class="mt-5 text-sm leading-relaxed text-slate-400">
-              Untuk build distribusi: <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">electron-builder</code> atau
-              package manual folder <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">poni-clone/</code>.
-              Jalankan <code class="rounded bg-white/5 px-1.5 py-0.5 font-mono text-xs text-accent-400">poni.exe</code> untuk hasil build yang siap dipakai.
+      <!-- ============================ STATISTIK ============================ -->
+      <section id="statistik" class="border-y border-white/[0.05] bg-ink-900/40 py-20">
+        <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
+          <div>
+            <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Leaderboard publik
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-slate-400">
+              Unggah satu karakter dari <span class="text-slate-200">Settings → Stats</span>, dan
+              karaktermu tampil di leaderboard publik: Job, Activity, Mechanic, Farmer, Truck, Taxi
+              dan Sidejob.
             </p>
+            <p class="mt-3 text-sm leading-relaxed text-slate-500">
+              Tabel per section yang bisa disortir dan difilter — dari <span class="text-slate-300">ore miner</span>
+              sampai <span class="text-slate-300">ikan / penumpang taxi</span> — 50 baris per halaman.
+              Hanya data publik yang diunggah; file lokal tidak pernah dibaca website.
+            </p>
+            <a href="./stats.html" class="mt-7 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink-950 transition hover:bg-accent-400">
+              Buka Statistik Player
+            </a>
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-ink-900/80 p-5 shadow-2xl shadow-black/50 backdrop-blur">
+            <div class="flex items-center justify-between border-b border-white/5 pb-3">
+              <span class="font-display text-sm font-semibold text-white">Leaderboard · Job</span>
+              <span class="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400">3 player</span>
+            </div>
+            <div class="mt-2">
+              <div class="flex items-center gap-2.5 border-b border-white/[0.04] py-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#ffe17a] to-[#f0b429] text-[11px] font-bold text-[#1b1400]">1</span>
+                <span class="flex-1 text-sm font-semibold text-white">Alexander_Dicky</span>
+                <span class="text-sm font-bold text-emerald-400">$6.463</span>
+              </div>
+              <div class="flex items-center gap-2.5 border-b border-white/[0.04] py-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#e8edf5] to-[#b9c2d0] text-[11px] font-bold text-[#16181d]">2</span>
+                <span class="flex-1 text-sm font-semibold text-white">Noah_Ascendant</span>
+                <span class="text-sm font-bold text-emerald-400">$460</span>
+              </div>
+              <div class="flex items-center gap-2.5 py-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-b from-[#f0b98a] to-[#c97a3d] text-[11px] font-bold text-[#1d1108]">3</span>
+                <span class="flex-1 text-sm font-semibold text-white">Khaleed_Mactavish</span>
+                <span class="text-sm font-bold text-emerald-400">—</span>
+              </div>
+            </div>
+            <div class="mt-4 border-t border-white/5 pt-3 text-[11px] leading-relaxed text-slate-500">
+              Job · Activity · Mechanic · Farmer · Truck · Taxi · Sidejob — tiap section punya
+              kolom sendiri, semuanya bisa disortir.
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ============================ CTA AKHIR ============================ -->
-      <section class="mx-auto max-w-5xl px-5 py-24 sm:px-8">
-        <div class="relative overflow-hidden rounded-3xl border border-accent/20 bg-gradient-to-b from-ink-850 to-ink-900 px-6 py-14 text-center sm:px-12">
-          <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-            <div class="absolute left-1/2 top-[-6rem] h-64 w-[36rem] -translate-x-1/2 rounded-full bg-accent/20 blur-[100px]"></div>
+      <!-- ============================ UNDUH ============================ -->
+      <section id="unduh" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Unduh NotchRP</h2>
+          <p class="mt-4 text-lg text-slate-400">
+            Gratis untuk Windows 10/11. Satu installer — aplikasi memperbarui dirinya sendiri
+            dari feed resmi, jadi kamu tidak perlu unduh ulang tiap rilis.
+          </p>
+
+          <a
+            href="https://updates-notch.elms-ppkn-smego10.my.id/NotchRP-Setup.exe"
+            class="mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-10 py-4 text-base font-semibold text-ink-950 transition hover:bg-accent-400"
+          >
+            Unduh NotchRP untuk Windows
+          </a>
+          <p class="mt-3 text-xs text-slate-500">
+            NotchRP-Setup.exe · Windows x64 · ±97 MB · v1.1.0
+          </p>
+        </div>
+
+        <div class="mx-auto mt-12 grid max-w-3xl gap-8 sm:grid-cols-3">
+          <div>
+            <span class="font-mono text-xs text-accent-400">01</span>
+            <h3 class="mt-2 font-display text-base font-semibold text-white">Jalankan installer</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-slate-400">Buka <span class="text-slate-300">NotchRP-Setup.exe</span>. Windows mungkin menampilkan peringatan SmartScreen karena installer tidak ditandatangani — pilih “Run anyway”.</p>
           </div>
-          <h2 class="relative font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Siap main lebih terorganisir?</h2>
-          <p class="relative mx-auto mt-4 max-w-xl text-lg text-slate-300">Pasang NotchClone, arahkan kursor ke bilah di atas layar, dan biarkan ia mencatat detail yang biasanya kamu lewatkan.</p>
-          <div class="relative mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a href="#instalasi" class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-950 transition hover:-translate-y-0.5 hover:bg-slate-200">
-              Unduh NotchClone
-            </a>
-            <a href="#fitur" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-              Pelajari Fitur
-            </a>
+          <div>
+            <span class="font-mono text-xs text-accent-400">02</span>
+            <h3 class="mt-2 font-display text-base font-semibold text-white">Arahkan ke game</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-slate-400">Saat diminta, pilih folder GTA San Andreas. Plugin <span class="text-slate-300">NotchChat.asi</span> terpasang otomatis di sana.</p>
+          </div>
+          <div>
+            <span class="font-mono text-xs text-accent-400">03</span>
+            <h3 class="mt-2 font-display text-base font-semibold text-white">Login ke SA-MP</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-slate-400">Masuk ke server, dan NotchRP mulai mendeteksi karaktermu begitu chatlog beraktivitas.</p>
           </div>
         </div>
       </section>
@@ -546,15 +362,17 @@
 
     <!-- ============================ FOOTER ============================ -->
     <footer class="border-t border-white/[0.06] bg-ink-950">
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row sm:px-8">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row sm:px-8">
         <div class="flex items-center gap-2">
-          <span class="relative flex h-7 w-16 items-center justify-center rounded-b-xl bg-black ring-1 ring-white/10">
-            <span class="h-1 w-7 rounded-full bg-accent shadow-[0_0_12px_1px_rgba(124,156,255,0.6)]"></span>
+          <span class="relative flex h-7 w-14 items-center justify-center rounded-b-xl bg-black ring-1 ring-white/10">
+            <span class="h-1 w-6 rounded-full bg-accent"></span>
           </span>
-          <span class="font-display text-sm font-semibold text-white">Notch<span class="text-accent">Clone</span></span>
+          <span class="font-display text-sm font-semibold text-white">Notch<span class="text-accent">RP</span></span>
         </div>
-        <p class="text-center text-xs text-slate-500">Dynamic Island overlay untuk GTA San Andreas (SA-MP / open.mp). Bukan produk resmi Rockstar Games atau SA-MP team.</p>
-        <p class="text-xs text-slate-600">© 2026 NotchClone · MIT License</p>
+        <p class="text-center text-xs text-slate-500">
+          Dynamic Island overlay untuk GTA San Andreas (SA-MP / open.mp). Bukan produk resmi Rockstar Games.
+        </p>
+        <p class="text-xs text-slate-600">© 2026 NotchRP · MIT License</p>
       </div>
     </footer>
   </body>

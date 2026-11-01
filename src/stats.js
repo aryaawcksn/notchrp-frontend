@@ -1,4 +1,4 @@
-// src/stats.js — public stats table for uploaded NotchClone characters.
+// src/stats.js — public stats table for uploaded NotchRP characters.
 //
 // Read-only: the desktop app uploads one character snapshot at a time from
 // Settings → Stats, this page lists GET /api/characters and then fetches
@@ -605,7 +605,7 @@ function renderStatus() {
     .sort((a, b) => b - a)[0];
   statusEl.textContent = newest
     ? `Data publik · diperbarui ${timeAgo(new Date(newest).toISOString())}`
-    : 'Data publik dari server statistik NotchClone.';
+    : 'Data publik dari server statistik NotchRP.';
   statusEl.classList.add('ok');
 }
 

@@ -1,12 +1,12 @@
 // src/lib/analyze.js
 //
-// Pure, dependency-free aggregation for the NotchClone player stats page.
-// It mirrors the tracker logic in NotchClone (activity.js / sidejob.js /
+// Pure, dependency-free aggregation for the NotchRP player stats page.
+// It mirrors the tracker logic in NotchRP (activity.js / sidejob.js /
 // farmer.js / mechanic.js / taxi.js / ledger.js / playtime.js) so the numbers
 // shown here line up with what the overlay shows in-game.
 //
 // A "dataset" is built from the JSON files the player drags out of their
-// NotchClone data folder (e.g. characters/<slug>/activity.json).
+// NotchRP data folder (e.g. characters/<slug>/activity.json).
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 

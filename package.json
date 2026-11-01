@@ -1,7 +1,7 @@
 {
-  "name": "notchclone-website",
+  "name": "notchrp-website",
   "version": "1.0.0",
-  "description": "Landing page showcase untuk NotchClone — Windows Dynamic Island overlay untuk GTA San Andreas (SA-MP / open.mp)",
+  "description": "Website NotchRP — overlay Dynamic Island untuk GTA San Andreas (SA-MP / open.mp)",
   "private": true,
   "type": "module",
   "scripts": {
